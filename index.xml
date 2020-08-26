@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Science Portfolio on Xiangwen Mo</title>
-    <link>https://xiangwenmo.github.io/Xiangwen_portfolio/</link>
+    <link>https://xiangwenmo.github.io/portfolio/</link>
     <description>Recent content in Data Science Portfolio on Xiangwen Mo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2020 10:58:08 -0400</lastBuildDate>
     
-	<atom:link href="https://xiangwenmo.github.io/Xiangwen_portfolio/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiangwenmo.github.io/portfolio/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Project 1：Build my personal website</title>
-      <link>https://xiangwenmo.github.io/Xiangwen_portfolio/post/project-1/</link>
-      <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
+      <title>Project 1: Build my personal website</title>
+      <link>https://xiangwenmo.github.io/portfolio/post/proj-1/</link>
+      <pubDate>Tue, 25 Aug 2020 10:58:08 -0400</pubDate>
       
-      <guid>https://xiangwenmo.github.io/Xiangwen_portfolio/post/project-1/</guid>
+      <guid>https://xiangwenmo.github.io/portfolio/post/proj-1/</guid>
       <description>Overview This is the first project for BIOSTAT 823 (2020 Fall)
 This project requires to build a personal website. I build this website with Github Pages and Hugo, that allow to host a personal webpage without bothering about finding a domain name and have variety of personalized themes to choose from. I will discuss more details on how I create this website in following sections.
 The github repo is here</description>
@@ -24,15 +24,15 @@ The github repo is here</description>
     
     <item>
       <title>Biography</title>
-      <link>https://xiangwenmo.github.io/Xiangwen_portfolio/contact/</link>
+      <link>https://xiangwenmo.github.io/portfolio/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://xiangwenmo.github.io/Xiangwen_portfolio/contact/</guid>
+      <guid>https://xiangwenmo.github.io/portfolio/contact/</guid>
       <description>Education B.S. in Joint Mathematics and Economics with Magna Cum Laude, University of California, San Diego, 2018
 Experiences Data Scientist Intern, Black Fire Ventures, May, 2020 - Aug, 2020
 Consultant Intern, Mercer(China) Ltd., Jan, 2019 - May, 2019
 Data Analyst Intern, China Minmetal Nonferrous Metals Co., Ltd, July 2017 - Sep, 2017
-Contact Your Name Email Address An email address is required.  Message   </description>
+Send me messages Your Name Email Address An email address is required.  Message   </description>
     </item>
     
   </channel>
