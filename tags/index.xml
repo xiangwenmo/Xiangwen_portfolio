@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Xiangwen Mo</title>
-    <link>https://xiangwenmo.github.io/portfolio/tags/</link>
+    <link>https://xiangwenmo.github.io/tags/</link>
     <description>Recent content in Tags on Xiangwen Mo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 25 Aug 2020 10:58:08 -0400</lastBuildDate>
     
-	<atom:link href="https://xiangwenmo.github.io/portfolio/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiangwenmo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>website</title>
-      <link>https://xiangwenmo.github.io/portfolio/tags/website/</link>
+      <link>https://xiangwenmo.github.io/tags/website/</link>
       <pubDate>Tue, 25 Aug 2020 10:58:08 -0400</pubDate>
       
-      <guid>https://xiangwenmo.github.io/portfolio/tags/website/</guid>
+      <guid>https://xiangwenmo.github.io/tags/website/</guid>
       <description></description>
     </item>
     
