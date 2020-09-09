@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Project 2: Euler&#39;s projects | Xiangwen Mo</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Project 2: Euler&#39;s projects" />
+<meta property="og:description" content="Solve 3 Euler&#39;s project problems with python" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiangwenmo.github.io/post/proj-2/" />
+<meta property="article:published_time" content="2020-09-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-09T00:00:00+00:00" />
+<meta itemprop="name" content="Project 2: Euler&#39;s projects">
+<meta itemprop="description" content="Solve 3 Euler&#39;s project problems with python">
+<meta itemprop="datePublished" content="2020-09-09T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-09T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1032">
+
+
+
+<meta itemprop="keywords" content="python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Project 2: Euler&#39;s projects"/>
+<meta name="twitter:description" content="Solve 3 Euler&#39;s project problems with python"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  
+  
+  <header class="cover bg-top" style="background-image: url('https://xiangwenmo.github.io/images/photo-1508780709619-79562169bc64.jpeg');">
+    <div class="pb3-m pb6-l bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Xiangwen Mo
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contact/" title="Biography page">
+              Biography
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Projects page">
+              Projects
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://www.facebook.com/sirius.mo.5/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/xiangwen-mo-121aa5152/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/xiangwenmo" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <h1 class="f2 f1-l fw2 white-90 mb0 lh-title">Project 2: Euler&#39;s projects</h1>
+          
+            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+              Solve 3 Euler&#39;s project problems with python
+            </h2>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        PROJECTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://xiangwenmo.github.io/post/proj-2/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://xiangwenmo.github.io/post/proj-2/&amp;text=Project%202:%20Euler%27s%20projects" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://xiangwenmo.github.io/post/proj-2/&amp;title=Project%202:%20Euler%27s%20projects" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Project 2: Euler&#39;s projects</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-09-09T00:00:00Z">September 9, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="overview">Overview</h2>
+<p>This is the second project for BIOSTAT 823 (2020 Fall)</p>
+<p>This project requires to solve three problems from <a href="https://projecteuler.net/archives">Euler&rsquo;s Project</a>. I choose my two of the problems related to decimals, and one related to prime numbers.</p>
+<p>The detailed solution and codes are in <a href="https://github.com/xiangwenmo/Euler_project">here</a>. I will explain my solutions to each of the problems in the following sections:</p>
+<h2 id="problem-7-10001st-prime-420695httpsprojecteulernetproblem7"><a href="https://projecteuler.net/problem=7">Problem 7: 10001st prime (420,695)</a></h2>
+<p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.<br>
+What is the 10,001st prime number?</p>
+<p><strong>Analysis:</strong> The task asks for gathering 10,001 prime numbers. Can start by building a list of primes and display the 10001st number when we reach that length.<!-- raw HTML omitted --></p>
+<p><strong>Solution:</strong> We know the first prime number is 2, so we can start the list from it. For every natural number, we need to check if it is a prime. A trick here is that if a number has a factor pair, then one of the factor must be less than or equal to the square root. So we can test whether the number is divisible from 2 to only up to the square root of that number. This trick will reduce workloads and make the function runs faster. Then form a list of prime numbers with the length = n, so that the nth number in the list is our desired result.<!-- raw HTML omitted --></p>
+<p><strong>Function:</strong></p>
+<pre><code>def getprime(n):
+    primes = []
+    x = 2
+
+    def is_prime(num):
+        '''inner function to check if the number is prime'''
+        for i in range(2, int(num ** 0.5) + 1):
+            if num%i == 0:
+                return False
+        return True
+
+    while len(primes)!= n:
+        if is_prime(x):
+            primes.append(x)
+        x+=1
+    return primes[-1]
+
+</code></pre><p><strong>Answer:</strong> By running the function <code>getprime(10001)</code>, the 10,001st prime number is 104743. <!-- raw HTML omitted --></p>
+<h2 id="problem-26-reciprocal-cycles-82622httpsprojecteulernetproblem26"><a href="https://projecteuler.net/problem=26">Problem 26 Reciprocal cycles (82,622)</a></h2>
+<p>A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators 2 to 10 are given:</p>
+<p>1/2	= 	0.5<br>
+1/3	= 	0.(3)<br>
+1/4	= 	0.25<br>
+1/5	= 	0.2<br>
+1/6	= 	0.1(6)<br>
+1/7	= 	0.(142857)<br>
+1/8	= 	0.125<br>
+1/9	= 	0.(1)<br>
+1/10	= 	0.1</p>
+<p>Where 0.1(6) means 0.166666&hellip;, and has a 1-digit recurring cycle. It can be seen that 1/7 has a 6-digit recurring cycle.</p>
+<p>Find the value of d &lt; 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.</p>
+<p><strong>Analysis:</strong> For this problem we can only check the prime number below the limit according to <a href="https://en.wikipedia.org/wiki/Fermat's_little_theorem">Fermat&rsquo;s little theorem</a> that $1/d$ has a cycle of n digits if 10^n mod d = 1 for prime d. That d is the full reptend prime. The solution is the first full reptend prime below the limit. <!-- raw HTML omitted --></p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>First I need to find all prime numbers below the limit by using <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode"> Eratosthenes algorithm</a>. I create a list <code>primes</code> to store n elements that each has the initial values 1 to identify the number at that index is a prime. I set 0 and 1 index as 0 since we know they are not primes. Then apply Eratosthenes algorithm to determine if the ith number is assigned as 0 (not prime). Exclude all multiples of prime numers that no greater than the square root of n. (For numbers that already assigned as 0 before the ith number, don&rsquo;t need to check their multiples again.) Then uses extended slicing to assign 0&rsquo;s for the excluded numbers.
+<ul>
+<li>For example, when i=5, 2*5=10, so 10 is not a prime that need to be assign as 0. But since 2 is the minimum factor of 10, 10 is already assigned as 0 when i=2, so no need to check it again.</li>
+</ul>
+</li>
+<li>After finish checking, return the list of indicies that are assigned to be 1, which identify the prime numbers. That list is all prime numbers below the limit.<!-- raw HTML omitted --></li>
+<li>Check full reptend prime from the last one in the prime number list. And return the first full reptend prime below the limit as our answer.</li>
+</ul>
+<p><strong>Function:</strong></p>
+<pre><code>def recuring_cyc(n):
+
+    def find_primes(n):
+
+        '''inner function to find all primes in
+        first n natural numbers '''
+
+        primes = [1]*n
+        primes[0] = primes[1] = 0
+        for i in range(2, int(n**0.5)+1):
+            if primes[i]:
+                primes[i*i:n:i] = [0] * ((n-1-i*i)//i+1)
+        return [i for i, x in enumerate(primes) if x == 1]
+
+    primes = find_primes(n)
+    for d in primes[::-1]:
+        p = 1
+        while (10 ** p) % d != 1:
+            p+=1
+        if d-1 == p:
+            break
+    return d
+
+</code></pre><p><strong>Answer:</strong> By running the function <code>recuring_cyc(1000)</code>, the longest recurring cycle for 1/d where d &lt; 1000 is when d = 983. <!-- raw HTML omitted --></p>
+<h2 id="problem-80-square-root-digital-expansion-19014httpsprojecteulernetproblem80"><a href="https://projecteuler.net/problem=80">Problem 80 Square root digital expansion (19,014)</a></h2>
+<p>It is well known that if the square root of a natural number is not an integer, then it is irrational. The decimal expansion of such square roots is infinite without any repeating pattern at all.</p>
+<p>The square root of two is 1.41421356237309504880&hellip;, and the digital sum of the first one hundred decimal digits is 475.</p>
+<p>For the first one hundred natural numbers, find the total of the digital sums of the first one hundred decimal digits for all the irrational square roots.</p>
+<p><strong>Analysis:</strong> Notice that the 100 digits include digits to the right and left of the decimal. To make sure the answer is correct, it is necessary to calculate more digits than required to avoid rounding errors.  <!-- raw HTML omitted --></p>
+<p><strong>Solution:</strong> First need to exclude perfect squares. Two methods <code>localcontext</code> and <code>Decimal</code> from <code>decimal</code> standard library are quite useful for this problem. Use <code>localcontext</code> to set the precision as 102 (get this number because the square root of 99 has 102 digits with the last three digits as 272. if not selecting precision as 102, the last digit would be rounded to 3 instead of 2). Use <code>Decimal(x).sqrt()</code> to get the 102 digits of the square root of number x. Remove the decimal point and sum up the digits, then add all digit sums together to get the answer. <!-- raw HTML omitted --></p>
+<p><strong>Function:</strong></p>
+<pre><code>def sqr_sum(n):
+
+    sums = 0
+    for x in range(2, n+1):
+        if int(x**0.5)**2 != x:
+            with localcontext() as ctx:
+                ctx.prec = 102
+                root = str(Decimal(x).sqrt()).replace(&quot;.&quot;, &quot;&quot;)
+                sums += sum([int(root[j]) for j in range(100)])
+    return sums
+
+</code></pre><p><strong>Answer:</strong> By running the function <code>sqr_sum(100)</code>, the answer for the question is 40886. <!-- raw HTML omitted --></p>
+<h2 id="reference">Reference</h2>
+<p><a href="https://projecteuler.net/archives">Euler project</a>
+<a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Eratosthenes algorithm</a><br>
+<a href="https://en.wikipedia.org/wiki/Full_reptend_prime">Full reptend prime</a><br>
+<a href="https://en.wikipedia.org/wiki/Fermat's_little_theorem">Fermat&rsquo;s little theorem</a>
+<a href="https://docs.python.org/3/library/decimal.html">Decimal docs</a></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiangwenmo.github.io/" >
+    &copy;  Xiangwen Mo 2020 
+  </a>
+    <div>
+
+
+
+<a href="https://www.facebook.com/sirius.mo.5/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/xiangwen-mo-121aa5152/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/xiangwenmo" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

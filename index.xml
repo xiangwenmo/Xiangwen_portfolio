@@ -6,10 +6,22 @@
     <description>Recent content in Data Science Portfolio on Xiangwen Mo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Aug 2020 10:58:08 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xiangwenmo.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Project 2: Euler&#39;s projects</title>
+      <link>https://xiangwenmo.github.io/post/proj-2/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiangwenmo.github.io/post/proj-2/</guid>
+      <description>Overview This is the second project for BIOSTAT 823 (2020 Fall)
+This project requires to solve three problems from Euler&amp;rsquo;s Project. I choose my two of the problems related to decimals, and one related to prime numbers.
+The detailed solution and codes are in here. I will explain my solutions to each of the problems in the following sections:
+Problem 7: 10001st prime (420,695) By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</description>
+    </item>
     
     <item>
       <title>Project 1: Build my personal website</title>
