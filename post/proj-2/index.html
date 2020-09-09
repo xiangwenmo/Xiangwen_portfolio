@@ -36,7 +36,7 @@
 <meta itemprop="description" content="Solve 3 Euler&#39;s project problems with python">
 <meta itemprop="datePublished" content="2020-09-09T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-09T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1032">
+<meta itemprop="wordCount" content="1035">
 
 
 
@@ -206,7 +206,7 @@
 <p>This project requires to solve three problems from <a href="https://projecteuler.net/archives">Euler&rsquo;s Project</a>. I choose my two of the problems related to decimals, and one related to prime numbers.</p>
 <p>The detailed solution and codes are in <a href="https://github.com/xiangwenmo/Euler_project">here</a>. I will explain my solutions to each of the problems in the following sections:</p>
 <h2 id="problem-7-10001st-prime-420695httpsprojecteulernetproblem7"><a href="https://projecteuler.net/problem=7">Problem 7: 10001st prime (420,695)</a></h2>
-<p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.<br>
+<p><strong>Problem:</strong> By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.<br>
 What is the 10,001st prime number?</p>
 <p><strong>Analysis:</strong> The task asks for gathering 10,001 prime numbers. Can start by building a list of primes and display the 10001st number when we reach that length.<!-- raw HTML omitted --></p>
 <p><strong>Solution:</strong> We know the first prime number is 2, so we can start the list from it. For every natural number, we need to check if it is a prime. A trick here is that if a number has a factor pair, then one of the factor must be less than or equal to the square root. So we can test whether the number is divisible from 2 to only up to the square root of that number. This trick will reduce workloads and make the function runs faster. Then form a list of prime numbers with the length = n, so that the nth number in the list is our desired result.<!-- raw HTML omitted --></p>
@@ -230,7 +230,7 @@ What is the 10,001st prime number?</p>
 
 </code></pre><p><strong>Answer:</strong> By running the function <code>getprime(10001)</code>, the 10,001st prime number is 104743. <!-- raw HTML omitted --></p>
 <h2 id="problem-26-reciprocal-cycles-82622httpsprojecteulernetproblem26"><a href="https://projecteuler.net/problem=26">Problem 26 Reciprocal cycles (82,622)</a></h2>
-<p>A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators 2 to 10 are given:</p>
+<p><strong>Problem:</strong> A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators 2 to 10 are given:</p>
 <p>1/2	= 	0.5<br>
 1/3	= 	0.(3)<br>
 1/4	= 	0.25<br>
@@ -242,7 +242,7 @@ What is the 10,001st prime number?</p>
 1/10	= 	0.1</p>
 <p>Where 0.1(6) means 0.166666&hellip;, and has a 1-digit recurring cycle. It can be seen that 1/7 has a 6-digit recurring cycle.</p>
 <p>Find the value of d &lt; 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.</p>
-<p><strong>Analysis:</strong> For this problem we can only check the prime number below the limit according to <a href="https://en.wikipedia.org/wiki/Fermat's_little_theorem">Fermat&rsquo;s little theorem</a> that $1/d$ has a cycle of n digits if 10^n mod d = 1 for prime d. That d is the full reptend prime. The solution is the first full reptend prime below the limit. <!-- raw HTML omitted --></p>
+<p><strong>Analysis:</strong> For this problem we can only check the prime number below the limit according to <a href="https://en.wikipedia.org/wiki/Fermat's_little_theorem">Fermat&rsquo;s little theorem</a> that 1/d has a cycle of n digits if 10^n mod d = 1 for prime d. That d is the full reptend prime. The solution is the first full reptend prime below the limit. <!-- raw HTML omitted --></p>
 <p><strong>Solution:</strong></p>
 <ul>
 <li>First I need to find all prime numbers below the limit by using <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode"> Eratosthenes algorithm</a>. I create a list <code>primes</code> to store n elements that each has the initial values 1 to identify the number at that index is a prime. I set 0 and 1 index as 0 since we know they are not primes. Then apply Eratosthenes algorithm to determine if the ith number is assigned as 0 (not prime). Exclude all multiples of prime numers that no greater than the square root of n. (For numbers that already assigned as 0 before the ith number, don&rsquo;t need to check their multiples again.) Then uses extended slicing to assign 0&rsquo;s for the excluded numbers.
@@ -279,7 +279,7 @@ What is the 10,001st prime number?</p>
 
 </code></pre><p><strong>Answer:</strong> By running the function <code>recuring_cyc(1000)</code>, the longest recurring cycle for 1/d where d &lt; 1000 is when d = 983. <!-- raw HTML omitted --></p>
 <h2 id="problem-80-square-root-digital-expansion-19014httpsprojecteulernetproblem80"><a href="https://projecteuler.net/problem=80">Problem 80 Square root digital expansion (19,014)</a></h2>
-<p>It is well known that if the square root of a natural number is not an integer, then it is irrational. The decimal expansion of such square roots is infinite without any repeating pattern at all.</p>
+<p><strong>Problem:</strong> It is well known that if the square root of a natural number is not an integer, then it is irrational. The decimal expansion of such square roots is infinite without any repeating pattern at all.</p>
 <p>The square root of two is 1.41421356237309504880&hellip;, and the digital sum of the first one hundred decimal digits is 475.</p>
 <p>For the first one hundred natural numbers, find the total of the digital sums of the first one hundred decimal digits for all the irrational square roots.</p>
 <p><strong>Analysis:</strong> Notice that the 100 digits include digits to the right and left of the decimal. To make sure the answer is correct, it is necessary to calculate more digits than required to avoid rounding errors.  <!-- raw HTML omitted --></p>
