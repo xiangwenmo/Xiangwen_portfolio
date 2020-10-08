@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Project 4: Convert spotify dataframe to 3NF and create SQL schema | Xiangwen Mo</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Project 4: Convert spotify dataframe to 3NF and create SQL schema" />
+<meta property="og:description" content="Overview This is the fourth project for BIOSTAT 823 (2020 Fall)
+This project requires to Create a SQLite3 schema to store spotify data in at least 3rd normal form (3NF) and use an SQL query to find the names of all playlists that contain instrumentals
+I used python to do the normalization and stored the transformed dataframe into a SQL database. I&rsquo;ll show how I do it in the following sections:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiangwenmo.github.io/post/proj-4/" />
+<meta property="article:published_time" content="2020-10-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-08T00:00:00+00:00" />
+<meta itemprop="name" content="Project 4: Convert spotify dataframe to 3NF and create SQL schema">
+<meta itemprop="description" content="Overview This is the fourth project for BIOSTAT 823 (2020 Fall)
+This project requires to Create a SQLite3 schema to store spotify data in at least 3rd normal form (3NF) and use an SQL query to find the names of all playlists that contain instrumentals
+I used python to do the normalization and stored the transformed dataframe into a SQL database. I&rsquo;ll show how I do it in the following sections:">
+<meta itemprop="datePublished" content="2020-10-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-10-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1512">
+
+
+
+<meta itemprop="keywords" content="SQL,python,3NF," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Project 4: Convert spotify dataframe to 3NF and create SQL schema"/>
+<meta name="twitter:description" content="Overview This is the fourth project for BIOSTAT 823 (2020 Fall)
+This project requires to Create a SQLite3 schema to store spotify data in at least 3rd normal form (3NF) and use an SQL query to find the names of all playlists that contain instrumentals
+I used python to do the normalization and stored the transformed dataframe into a SQL database. I&rsquo;ll show how I do it in the following sections:"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  
+  
+  <header class="cover bg-top" style="background-image: url('https://xiangwenmo.github.io/images/photo-1495434942214-9b525bba74e9.jpeg');">
+    <div class="pb3-m pb6-l bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Xiangwen Mo
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contact/" title="Biography page">
+              Biography
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Projects page">
+              Projects
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://www.facebook.com/sirius.mo.5/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/xiangwen-mo-121aa5152/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/xiangwenmo" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <h1 class="f2 f1-l fw2 white-90 mb0 lh-title">Project 4: Convert spotify dataframe to 3NF and create SQL schema</h1>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        PROJECTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://xiangwenmo.github.io/post/proj-4/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://xiangwenmo.github.io/post/proj-4/&amp;text=Project%204:%20Convert%20spotify%20dataframe%20to%203NF%20and%20create%20SQL%20schema" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://xiangwenmo.github.io/post/proj-4/&amp;title=Project%204:%20Convert%20spotify%20dataframe%20to%203NF%20and%20create%20SQL%20schema" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Project 4: Convert spotify dataframe to 3NF and create SQL schema</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-10-08T00:00:00Z">October 8, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="overview">Overview</h2>
+<p>This is the fourth project for BIOSTAT 823 (2020 Fall)</p>
+<p>This project requires to Create a SQLite3 schema to store <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md">spotify data</a> in at least 3rd normal form (3NF) and use an SQL query to find the names of all playlists that contain instrumentals</p>
+<p>I used python to do the normalization and stored the transformed dataframe into a SQL database. I&rsquo;ll show how I do it in the following sections:</p>
+<h2 id="database-normalization-concepts">Database Normalization Concepts</h2>
+<p>Before doing the normalization, we first need to understand what each level of normalization is.</p>
+<h3 id="1st-normal-form-1nf">1st Normal Form (1NF)</h3>
+<p>A relation is in first normal form if every attribute in every row can contain only one single (atomic) value.  There is no repeating groups of columns, and each cell contains a single value</p>
+<h3 id="2nd-normal-form-2nf">2nd Normal Form (2NF)</h3>
+<p>A relation is in second normal form if it is in 1NF and every non key attribute is fully functionally dependent on the primary key. A primary key is a set of one or more columns that allow you to uniquely identify each row.</p>
+<h3 id="3rd-normal-form-3nf">3rd Normal Form (3NF)</h3>
+<p>A relation is in third normal form if it is in 2NF and no non key attribute is transitively dependent on the primary key. That is only the primary key gives information about the remaining columns.</p>
+<p>With such concepts, now we can normalize the spotify dataframe.</p>
+<h2 id="normalization-using-python-pandas">Normalization using Python pandas</h2>
+<h3 id="take-a-look-at-the-data">Take a look at the data</h3>
+<pre><code>import pandas as pd
+spotify = pd.read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&quot;)
+spotify.columns
+</code></pre><pre><code>Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+       'track_album_id', 'track_album_name', 'track_album_release_date',
+       'playlist_name', 'playlist_id', 'playlist_genre', 'playlist_subgenre',
+       'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
+       'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
+       'duration_ms', 'ID', 'id'],
+      dtype='object')
+</code></pre><p>There are 23 columns in the dataset, take look at the description of each variable, we can divide the information to 4 main tables:</p>
+<ol>
+<li><strong>Tracks</strong></li>
+<li><strong>Albums</strong></li>
+<li><strong>Playlists</strong></li>
+<li><strong>Genres</strong></li>
+</ol>
+<p>We also need to capture which track in the playlist, which genres in the playlist, also which track in the album.</p>
+<p>We need to verify if the primary key is a valid one for 3NF that uniquely identify each row of the dataframe. For convenience, I created a function to check primary key:</p>
+<pre><code>def is_pk(df, key):
+    '''
+    check if the checked column is the primary key
+    the column is PK if it uniquely identifies each row of the dataframe
+
+    Parameters:
+    ---------------
+    df: the dataframe
+    key: the candidate column to check if it is primary key
+    '''
+
+    if len(set(df.loc[:,key])) == df.shape[0]:
+        return True
+    else:
+        return False
+</code></pre><p>Now we can actually start normalization.</p>
+<h3 id="tracks">Tracks</h3>
+<p>For track table, we need to include <code>'track_id', 'track_name', 'track_artist', 'track_popularity'</code>. Notice <code>'track_album_name', 'track_album_release_date'</code> depends on <code>'track_album_id'</code>. So we need to include <code>'track_album_id'</code> and put album name and release date with the album_id to a separate table. And we need also include all features from <code>'danceability'</code> to <code>'duration_ms'</code>.</p>
+<pre><code>track1 = spotify.iloc[:, 0:5]
+track2 = spotify.loc[:, 'danceability':]
+track = pd.concat([track1, track2], axis = 1).drop_duplicates()
+track.head()
+</code></pre><table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">track_id</th>
+<th align="left">track_name</th>
+<th align="left">track_artist</th>
+<th align="right">track_popularity</th>
+<th align="left">track_album_id</th>
+<th align="right">danceability</th>
+<th align="right">energy</th>
+<th align="right">key</th>
+<th align="right">loudness</th>
+<th align="right">mode</th>
+<th align="right">speechiness</th>
+<th align="right">acousticness</th>
+<th align="right">instrumentalness</th>
+<th align="right">liveness</th>
+<th align="right">valence</th>
+<th align="right">tempo</th>
+<th align="right">duration_ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="left">6f807x0ima9a1j3VPbc7VN</td>
+<td align="left">I Don&rsquo;t Care (with Justin Bieber) - Loud Luxury Remix</td>
+<td align="left">Ed Sheeran</td>
+<td align="right">66</td>
+<td align="left">2oCs0DGTsRO98Gh5ZSl2Cx</td>
+<td align="right">0.748</td>
+<td align="right">0.916</td>
+<td align="right">6</td>
+<td align="right">-2.634</td>
+<td align="right">1</td>
+<td align="right">0.0583</td>
+<td align="right">0.102</td>
+<td align="right">0</td>
+<td align="right">0.0653</td>
+<td align="right">0.518</td>
+<td align="right">122.036</td>
+<td align="right">194754</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">0r7CVbZTWZgbTCYdfa2P31</td>
+<td align="left">Memories - Dillon Francis Remix</td>
+<td align="left">Maroon 5</td>
+<td align="right">67</td>
+<td align="left">63rPSO264uRjW1X5E6cWv6</td>
+<td align="right">0.726</td>
+<td align="right">0.815</td>
+<td align="right">11</td>
+<td align="right">-4.969</td>
+<td align="right">1</td>
+<td align="right">0.0373</td>
+<td align="right">0.0724</td>
+<td align="right">0.00421</td>
+<td align="right">0.357</td>
+<td align="right">0.693</td>
+<td align="right">99.972</td>
+<td align="right">162600</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">1z1Hg7Vb0AhHDiEmnDE79l</td>
+<td align="left">All the Time - Don Diablo Remix</td>
+<td align="left">Zara Larsson</td>
+<td align="right">70</td>
+<td align="left">1HoSmj2eLcsrR0vE9gThr4</td>
+<td align="right">0.675</td>
+<td align="right">0.931</td>
+<td align="right">1</td>
+<td align="right">-3.432</td>
+<td align="right">0</td>
+<td align="right">0.0742</td>
+<td align="right">0.0794</td>
+<td align="right">2.33e-05</td>
+<td align="right">0.11</td>
+<td align="right">0.613</td>
+<td align="right">124.008</td>
+<td align="right">176616</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">75FpbthrwQmzHlBJLuGdC7</td>
+<td align="left">Call You Mine - Keanu Silva Remix</td>
+<td align="left">The Chainsmokers</td>
+<td align="right">60</td>
+<td align="left">1nqYsOef1yKKuGOVchbsk6</td>
+<td align="right">0.718</td>
+<td align="right">0.93</td>
+<td align="right">7</td>
+<td align="right">-3.778</td>
+<td align="right">1</td>
+<td align="right">0.102</td>
+<td align="right">0.0287</td>
+<td align="right">9.43e-06</td>
+<td align="right">0.204</td>
+<td align="right">0.277</td>
+<td align="right">121.956</td>
+<td align="right">169093</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">1e8PAfcKUYoKkxPhrHqw4x</td>
+<td align="left">Someone You Loved - Future Humans Remix</td>
+<td align="left">Lewis Capaldi</td>
+<td align="right">69</td>
+<td align="left">7m7vv9wlQ4i0LFuJiE2zsQ</td>
+<td align="right">0.65</td>
+<td align="right">0.833</td>
+<td align="right">1</td>
+<td align="right">-4.672</td>
+<td align="right">1</td>
+<td align="right">0.0359</td>
+<td align="right">0.0803</td>
+<td align="right">0</td>
+<td align="right">0.0833</td>
+<td align="right">0.725</td>
+<td align="right">123.976</td>
+<td align="right">189052</td>
+</tr>
+</tbody>
+</table>
+<p>Check if <code>track_id</code> is the primary key:</p>
+<pre><code>is_pk(track, 'track_id')
+True
+</code></pre><h3 id="albums">Albums</h3>
+<p>we need to include &lsquo;track_album_id&rsquo;, &lsquo;track_album_name&rsquo;, &lsquo;track_album_release_date&rsquo;</p>
+<pre><code>album = spotify.loc[:, 'track_album_id':'track_album_release_date'].drop_duplicates()
+album.columns = ['album_id', 'album_name','release_date']
+album.head()
+</code></pre><table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">album_id</th>
+<th align="left">album_name</th>
+<th align="left">release_date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="left">2oCs0DGTsRO98Gh5ZSl2Cx</td>
+<td align="left">I Don&rsquo;t Care (with Justin Bieber) [Loud Luxury Remix]</td>
+<td align="left">2019-06-14</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">63rPSO264uRjW1X5E6cWv6</td>
+<td align="left">Memories (Dillon Francis Remix)</td>
+<td align="left">2019-12-13</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">1HoSmj2eLcsrR0vE9gThr4</td>
+<td align="left">All the Time (Don Diablo Remix)</td>
+<td align="left">2019-07-05</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">1nqYsOef1yKKuGOVchbsk6</td>
+<td align="left">Call You Mine - The Remixes</td>
+<td align="left">2019-07-19</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">7m7vv9wlQ4i0LFuJiE2zsQ</td>
+<td align="left">Someone You Loved (Future Humans Remix)</td>
+<td align="left">2019-03-05</td>
+</tr>
+</tbody>
+</table>
+<p>Check if <code>album_id</code> is the primary key:</p>
+<pre><code>is_pk(album, 'album_id')
+True
+</code></pre><h3 id="playlist-and-genres-tables">Playlist and Genres tables</h3>
+<ul>
+<li>columns related to playlist include &lsquo;playlist_name&rsquo;, &lsquo;playlist_id&rsquo;, &lsquo;playlist_genre&rsquo;, &lsquo;playlist_subgenre&rsquo;</li>
+<li>we need a separate table relates id and name, and a table for id relating to genres</li>
+<li>We also need a table relates which track belongs to the playlist</li>
+<li>Notice there are &lsquo;playlist_genre&rsquo;, &lsquo;playlist_subgenre&rsquo; that may have some dependency, so we also need a separate genre table to relate these two.</li>
+</ul>
+<p><strong>Playlist_Name</strong></p>
+<pre><code>playlist_name = spotify.loc[:, ['playlist_id', 'playlist_name']].drop_duplicates()
+playlist_name.head()
+</code></pre><table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">playlist_id</th>
+<th align="left">playlist_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="left">37i9dQZF1DXcZDD7cfEKhW</td>
+<td align="left">Pop Remix</td>
+</tr>
+<tr>
+<td align="right">70</td>
+<td align="left">37i9dQZF1DWZQaaqNMbbXa</td>
+<td align="left">Dance Pop</td>
+</tr>
+<tr>
+<td align="right">167</td>
+<td align="left">37i9dQZF1DX2ENAPP1Tyed</td>
+<td align="left">Dance Room</td>
+</tr>
+<tr>
+<td align="right">223</td>
+<td align="left">37i9dQZF1DWSJHnPb1f0X3</td>
+<td align="left">Cardio</td>
+</tr>
+<tr>
+<td align="right">272</td>
+<td align="left">37i9dQZF1DX6pH08wMhkaI</td>
+<td align="left">Dance Pop Hits</td>
+</tr>
+</tbody>
+</table>
+<p>Check if <code>playlist_id</code> primary key:</p>
+<pre><code>is_pk(playlist_name, 'playlist_id')
+True
+</code></pre><p><strong>Genres</strong></p>
+<pre><code>genres = spotify.loc[:, ['playlist_genre', 'playlist_subgenre']].drop_duplicates()
+genres.head()
+</code></pre><table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">playlist_genre</th>
+<th align="left">playlist_subgenre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="left">pop</td>
+<td align="left">dance pop</td>
+</tr>
+<tr>
+<td align="right">1298</td>
+<td align="left">pop</td>
+<td align="left">post-teen pop</td>
+</tr>
+<tr>
+<td align="right">2427</td>
+<td align="left">pop</td>
+<td align="left">electropop</td>
+</tr>
+<tr>
+<td align="right">3835</td>
+<td align="left">pop</td>
+<td align="left">indie poptimism</td>
+</tr>
+<tr>
+<td align="right">5507</td>
+<td align="left">rap</td>
+<td align="left">hip hop</td>
+</tr>
+</tbody>
+</table>
+<pre><code>genres.groupby('playlist_subgenre').count()
+</code></pre><p>We found that each subgenre corresponding to 1 genre. So if we know the subgenre, then we can deduce its genre. but not the other way as each genre may have multiple subgenres. Considering this fact, we know:</p>
+<ul>
+<li>The primary key for genres table is <code>playlist_subgenre</code></li>
+</ul>
+<pre><code>is_pk(genres, 'playlist_subgenre')
+True
+</code></pre><ul>
+<li>We shall use subgenre as the key to identify which genre/subgenre in the playlist.</li>
+</ul>
+<p><strong>Playlist</strong>
+When building this table, I realized that some playlist id can related to multiple subgenres/genres. So I used row index as the primary key to make sure it is the valid one for 3NF.</p>
+<pre><code>playlist = spotify.loc[:,['playlist_id', 'playlist_subgenre']].drop_duplicates().reset_index()
+playlist['index'] = playlist.index
+playlist.columns = ['playlist_idx', 'id', 'subgenre']
+playlist.head()
+</code></pre><table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">playlist_idx</th>
+<th align="left">id</th>
+<th align="left">subgenre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">37i9dQZF1DXcZDD7cfEKhW</td>
+<td align="left">dance pop</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">37i9dQZF1DWZQaaqNMbbXa</td>
+<td align="left">dance pop</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">37i9dQZF1DX2ENAPP1Tyed</td>
+<td align="left">dance pop</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="left">37i9dQZF1DWSJHnPb1f0X3</td>
+<td align="left">dance pop</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="left">37i9dQZF1DX6pH08wMhkaI</td>
+<td align="left">dance pop</td>
+</tr>
+</tbody>
+</table>
+<pre><code>is_pk(playlist, 'playlist_idx')
+True
+</code></pre><p><strong>Playlist_track</strong>
+The last table shall be which track belongs to which playlist. Similar as the <strong>Playlist</strong> table, a track can in multiple playlists, and a playlist must include multiple tracks. So I first extract <code>'track_id', 'playlist_id', 'playlist_subgenre'</code> from the original dataframe, and inner join it with the <strong>playlist</strong> table to match the <code>track_id</code> with <code>playlist_idx</code>. And I used row index as the primary key to make sure it is the valid one for 3NF.</p>
+<pre><code>track1 = spotify.loc[:, ['track_id', 'playlist_id', 'playlist_subgenre']].drop_duplicates()
+playlist_track = pd.merge(track1, playlist, how = 'inner', left_on = ['playlist_id', 'playlist_subgenre'],
+        right_on=['id', 'subgenre']).loc[:, ['track_id', 'playlist_idx']].drop_duplicates().reset_index()
+playlist_track['index'] = playlist_track.index
+playlist_track.columns = ['playlist_track_id', 'track_id', 'playlist_idx']
+playlist_track.head()
+</code></pre><table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">playlist_track_id</th>
+<th align="left">track_id</th>
+<th align="right">playlist_idx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">6f807x0ima9a1j3VPbc7VN</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">0r7CVbZTWZgbTCYdfa2P31</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">1z1Hg7Vb0AhHDiEmnDE79l</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="left">75FpbthrwQmzHlBJLuGdC7</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="left">1e8PAfcKUYoKkxPhrHqw4x</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<pre><code>is_pk(playlist_track, 'playlist_track_id')
+True
+</code></pre><p>Now I finished the normalization. Next step is to store these dataframe to the SQL database.</p>
+<h2 id="store-sql-database">Store SQL Database</h2>
+<pre><code>%load_ext sql
+%sql sqlite:///spotify.db
+</code></pre><pre><code>%%sql
+CREATE TABLE Tracks (
+    track_id TEXT NOT NULL PRIMARY KEY,
+    track_name TEXT,
+    track_artist TEXT,
+    track_popularity INTEGER NOT NULL,
+    track_album_id TEXT NOT NULL,
+    danceability REAL NOT NULL,
+    energy REAL NOT NULL,
+    key INTEGER NOT NULL,
+    loudness REAL NOT NULL,
+    mode INTEGER NOT NULL,
+    speechiness REAL NOT NULL,
+    acousticness REAL NOT NULL,
+    instrumentalness REAL NOT NULL,
+    liveness REAL NOT NULL,
+    valence REAL NOT NULL,
+    tempo REAL NOT NULL,
+    duration_ms INTEGER NOT NULL,
+        FOREIGN KEY (track_album_id) REFERENCES Albums(album_id)
+);
+
+CREATE TABLE Albums (
+    album_id TEXT NOT NULL PRIMARY KEY,
+    album_name TEXT,
+    release_date TEXT
+);
+
+CREATE TABLE Genres(
+    playlist_genre TEXT,
+    playlist_subgenre TEXT NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE Playlist_Name(
+    playlist_id TEXT NOT NULL PRIMARY KEY,
+    playlist_name TEXT NOT NULL
+);
+CREATE TABLE Playlist(
+    playlist_idx INTEGER NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL,
+    subgenre TEXT NOT NULL,
+        FOREIGN KEY (id) REFERENCES Playlist_Name(playlist_id),
+        FOREIGN KEY (subgenre) REFERENCES Genres(playlist_subgenre)
+);
+CREATE TABLE Playlist_Track(
+    playlist_track_id INTEGER NOT NULL PRIMARY KEY,
+    track_id TEXT NOT NULL,
+    playlist_idx INTEGER NOT NULL,
+        FOREIGN KEY(track_id) REFERENCES Tracks(track_id),
+        FOREIGN KEY(playlist_idx) REFERENCES Playlist(playlist_idx)
+);
+</code></pre><pre><code>import sqlite3
+con = sqlite3.connect('spotify.db')
+</code></pre><pre><code>track.to_sql('Tracks', con, if_exists='replace', index = False)
+album.to_sql('Albums', con, if_exists='replace', index = False)
+genres.to_sql('Genres', con, if_exists='replace', index = False)
+playlist_name.to_sql('Playlist_Name', con, if_exists = 'replace', index = False)
+playlist.to_sql('Playlist', con, if_exists = 'replace', index = False)
+playlist_track.to_sql('Playlist_Track', con, if_exists = 'replace', index = False)
+</code></pre><h2 id="use-an-sql-query-to-find-the-names-of-all-playlists-that-contain-instrumentals">Use an SQL query to find the names of all playlists that contain instrumentals</h2>
+<p>Based on the description of the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md">spotify data</a>, for instrumentalness, values above 0.5 are intended to represent instrumental tracks.</p>
+<p>I can find the instrumental track_id from the <strong>Track</strong> table, and check which playlist_id contain these track_id from the <strong>Playlist_track</strong> table. Then with the identified playlist_id, I can find their corresponding playlist name from <strong>Playlist_Name</strong> table. I also descending ordered it so we can see which playlist contains less vocal content.</p>
+<pre><code>sql = '''
+SELECT DISTINCT Playlist_Name.playlist_name
+FROM Tracks
+LEFT JOIN Playlist_Track ON Tracks.track_id = Playlist_Track.track_id
+LEFT JOIN Playlist ON Playlist.playlist_idx = Playlist_Track.playlist_idx
+LEFT JOIN Playlist_Name ON Playlist.id = Playlist_Name.playlist_id
+WHERE instrumentalness &gt; 0.5
+ORDER BY instrumentalness DESC
+'''
+</code></pre><pre><code>pd.read_sql(sql, con)
+</code></pre><p>(For reading convenience， I only display first 5 rows of the output. There are total 256 playlists that contain instrumentals)</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">playlist_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0</td>
+<td align="left">90s Dance Hits</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="left">RUSSIAN Gangster Rap</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">The Queen - La Discografia Completa</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="left">Classic Rock Now</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="left">EDM/POP</td>
+</tr>
+</tbody>
+</table>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/sql" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">SQL</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/3nf" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">3NF</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/proj-3/">Project 3: Visualization about Malaria</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/proj-2/">Project 2: Euler&#39;s projects</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiangwenmo.github.io/" >
+    &copy;  Xiangwen Mo 2020 
+  </a>
+    <div>
+
+
+
+<a href="https://www.facebook.com/sirius.mo.5/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/xiangwen-mo-121aa5152/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/xiangwenmo" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
