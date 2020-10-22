@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Project 5: Use Star Wars API to request Data about SW characters</title>
+      <link>https://xiangwenmo.github.io/post/proj-5/</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiangwenmo.github.io/post/proj-5/</guid>
+      <description>Overview This is the fifth project for BIOSTAT 823 (2020 Fall)
+This project requires to use the requests library, download all the people in the Star Wars universe using the Star Wars API. Need to show the name of the oldest character and the titles of films he appears in.
+Check API documentation Before request data, we first need to know the patterns of the urls and how to extract the desired information.</description>
+    </item>
+    
+    <item>
       <title>Project 4: Convert spotify dataframe to 3NF and create SQL schema</title>
       <link>https://xiangwenmo.github.io/post/proj-4/</link>
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
