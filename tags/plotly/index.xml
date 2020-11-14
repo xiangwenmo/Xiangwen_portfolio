@@ -6,10 +6,20 @@
     <description>Recent content in plotly on Xiangwen Mo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xiangwenmo.github.io/tags/plotly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Project 7: CNN model for insect image classification</title>
+      <link>https://xiangwenmo.github.io/post/proj-7/</link>
+      <pubDate>Sat, 14 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiangwenmo.github.io/post/proj-7/</guid>
+      <description>Overview This is the seventh project for BIOSTAT 823 (2020 Fall). This project requires to train a deep learning model to classify beetles, cockroaches and dragonflies using these insect images. (Original images).
+I decided to use Yann LeCun&amp;rsquo;s Convolutional Neural Network architecture (LeNet5) and made some adjustment. The most application of it is recoginizing simple digit images, which is kind of what we are trying to do for this problem.</description>
+    </item>
     
     <item>
       <title>Project 6: Dashboard for visualization of PhDs awarded in the US</title>
