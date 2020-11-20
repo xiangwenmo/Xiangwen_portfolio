@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Final-Project: COVID-19 Data Analysis and Dashboard | Xiangwen Mo</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Final-Project: COVID-19 Data Analysis and Dashboard" />
+<meta property="og:description" content="Overview This is the final project for BIOSTAT 823 (2020 Fall). This project focus on two main objectives:
+ Covid-19 data visualization that helps users to understand how COVID-19 spread across the world and the United States, and the current pandemic situation we are facing. Use different machine learning methods to predict confirm cases in a next given period. For this project, we have tried three models: SARIMAX model, SVR model, and prophet model." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiangwenmo.github.io/post/proj-8/" />
+<meta property="article:published_time" content="2020-11-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-20T00:00:00+00:00" />
+<meta itemprop="name" content="Final-Project: COVID-19 Data Analysis and Dashboard">
+<meta itemprop="description" content="Overview This is the final project for BIOSTAT 823 (2020 Fall). This project focus on two main objectives:
+ Covid-19 data visualization that helps users to understand how COVID-19 spread across the world and the United States, and the current pandemic situation we are facing. Use different machine learning methods to predict confirm cases in a next given period. For this project, we have tried three models: SARIMAX model, SVR model, and prophet model.">
+<meta itemprop="datePublished" content="2020-11-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-11-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1933">
+
+
+
+<meta itemprop="keywords" content="plotly,python,visualization,covid-19," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Final-Project: COVID-19 Data Analysis and Dashboard"/>
+<meta name="twitter:description" content="Overview This is the final project for BIOSTAT 823 (2020 Fall). This project focus on two main objectives:
+ Covid-19 data visualization that helps users to understand how COVID-19 spread across the world and the United States, and the current pandemic situation we are facing. Use different machine learning methods to predict confirm cases in a next given period. For this project, we have tried three models: SARIMAX model, SVR model, and prophet model."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  
+  
+  <header class="cover bg-top" style="background-image: url('https://xiangwenmo.github.io/images/photo-1585222515068-7201a72c4181.jpeg');">
+    <div class="pb3-m pb6-l bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Xiangwen Mo
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contact/" title="Biography page">
+              Biography
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Projects page">
+              Projects
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://www.facebook.com/sirius.mo.5/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/xiangwen-mo-121aa5152/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/xiangwenmo" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <h1 class="f2 f1-l fw2 white-90 mb0 lh-title">Final-Project: COVID-19 Data Analysis and Dashboard</h1>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        PROJECTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://xiangwenmo.github.io/post/proj-8/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://xiangwenmo.github.io/post/proj-8/&amp;text=Final-Project:%20COVID-19%20Data%20Analysis%20and%20Dashboard" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://xiangwenmo.github.io/post/proj-8/&amp;title=Final-Project:%20COVID-19%20Data%20Analysis%20and%20Dashboard" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Final-Project: COVID-19 Data Analysis and Dashboard</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-11-20T00:00:00Z">November 20, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="overview">Overview</h2>
+<p>This is the final project for BIOSTAT 823 (2020 Fall). This project focus on two main objectives:</p>
+<ol>
+<li>Covid-19 data visualization that helps users to understand how COVID-19 spread across the world and the United States, and the current pandemic situation we are facing.</li>
+<li>Use different machine learning methods to predict confirm cases in a next given period. For this project, we have tried three models: SARIMAX model, SVR model, and prophet model. The detail of each model and their accuracy will be discussed in this blog.</li>
+</ol>
+<p>Before I provide more details on our approaches to complete this project, I would like to first thank my teammates: Yiping Song, Fan Yang, and Bingruo Wu, who all made a great contribution and provide different insights to this project. I have learned a lot from each of them.</p>
+<p>You can first check our <a href="https://final-covid19-dashboard.herokuapp.com">dashboard</a> and play with it.</p>
+<h2 id="data-visualization-and-dashboard">Data Visualization and Dashboard</h2>
+<h3 id="dashboard-overview">Dashboard Overview</h3>
+<p>There are three sections in our dashboard.</p>
+<ul>
+<li>The <strong>Map</strong> section included daily updated cases map for the world and for the United States. Also included global spread of covid-19 maps</li>
+<li>The <strong>General Trend</strong> section included the plot of top 10 highest max infection cases/rate countries, and plots of infection rate vs. incidence rate for each countries.</li>
+<li>The <strong>Covid19 in US</strong> section focus the trend specifically on United States. We have plots of death rates vs. survive rates, and plots for confirm cases, death cases, and recover cases.</li>
+</ul>
+<p>For this part, I mainly did <strong>Map</strong> section for visualizing the COVID-19 cases across the world and entire United States on maps. And I&rsquo;ll explain more below:</p>
+<h3 id="data-sources">Data sources</h3>
+<p>There are various source of COVID-19 data. For <strong>Map</strong> section, We decided to use <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE data</a> that aggregated data from various sources included WHO, ECDC, US CDC, etc. The full list can be found on their github repository.</p>
+<p>The<a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series"> time series tables</a> included confirm, deaths, and recover data that integrated from the daily reports. There are both global and us tables, and we decided to use global tables to visualize the spread of covid-19.</p>
+<p>The <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports">daily report tables</a> contains daily confirmed, deaths, recovered, and active cases for each country/region. It also include incidence rates and case-fatality ratio. Tables are updated daily, and we use these data to visualize the daily data for the whole world and for United States.</p>
+<h3 id="spread-of-covid-19-global-start-since-1222020">Spread of Covid-19, global (start since 1/22/2020)</h3>
+<p>Since its reported first case on December 2019, COVID-19 has evolved from an isolated disease in a region of China to a global pandemic that has brought countries to a standstill, pushed hospital systems to the brink, and dragged the global economy into a recession. Over this whole year, COVID 19 is continuing its spread across the world with more than 50 million confirmed cases in 190 countries and about 15 million deaths. There are lots of news, articles and reports discussing its spread. However, just reading text may not be that straightforward, so we decided to visualize the spread of Covid-19 on the global map.</p>
+<p>Here I only show the animated spread timeline from March 22nd to May 3rd. But on our dashboard users can customize their interested time range by directly typing the date and click &lsquo;show me the spread&rsquo; to see plots.</p>
+<figure>
+    <img src="/images/spread.gif"/> 
+</figure>
+
+<p>For this part we first merge, clean and aggregate the time series data from JHU CSSE. There are three tables: confirmed, death, and recovered and we merge the raw data into one dataframe, then perform data cleaning due to missing values, wrong datatypes, and cases from cruise ships. Then we plot an animated covid-19 spread map for visualizing the change of confirmed cases overtime. We also put death and recover data on the hover text box, so they can check all three key information all at once. We allow users to choose their preferred date range to check how covid-19 is spread, and we set default from march to may as that is when we have a global covid-19 outbreak.  We think this map is quite intuitive and educating, to illustrate the timeline of how we get from a normal life to now.</p>
+<h3 id="daily-updated-map">Daily updated Map</h3>
+<p><strong>Global</strong><br>
+For global daily updated map, I decided to plot two maps.</p>
+<p>The first one is most updated COVID-19 global cases:</p>
+<p>
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+
+<div id="/plotly/daily_global.json" class="plotly" style="height:600px"></div>
+<script>
+Plotly.d3.json("/plotly/daily_global.json", function(err, fig) {
+    Plotly.plot('\/plotly\/daily_global.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+</p>
+<p>I directly used daily updated global data. The number of active cases of a specific location is represented by the size and color of the bubble. The hover information also included the confirmed, death, and recover cases of that location.</p>
+<p>Just looking at cases may not tell much. We decide to add another measure to asses the proportion of infected individual with fatal outcome is Case fatality ratio, that estimates this proportion of deaths among identified confirmed cases.</p>
+<p>
+
+
+
+<div id="/plotly/case-fatality.json" class="plotly" style="height:500px"></div>
+<script>
+Plotly.d3.json("/plotly/case-fatality.json", function(err, fig) {
+    Plotly.plot('\/plotly\/case-fatality.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+</p>
+<p>Usually CFR is calculated by death/confirmed, but it is usually obtained at the end of an outbreak after all cases resolved. However, as covid-19 is an ongoing pandemic, we decide to follow WHO guidelines to mitigate the bias due to delays during an ongoing outbreak. I calculated it by number of death/(number of death+number of recovered).<br>
+Also, different to the the global active cases map, where I show the data of each location that specified to each county, for this part I only specified it to each state, as the county CFR may be too small to show. Luckily, only United States data need to do further processing as it is the only country that specified to the county. In JHU CSSE repository, there is a daily updated tables for United States that specified to each state. For convenience, I decided to directly use this table to calculate the CFR and replace it with the US data in the global daily table.</p>
+<p><strong>United States</strong><br>
+For US daily updated map, I decided to also plot two maps.</p>
+<p>The first one is Covid 19 active cases in US by states. This map plot in the exactly same way as the one for the global active cases, except use daily updated US data and each bubble represents cases of each state:</p>
+<p>
+
+
+
+<div id="/plotly/us.json" class="plotly" style="height:500px"></div>
+<script>
+Plotly.d3.json("/plotly/us.json", function(err, fig) {
+    Plotly.plot('\/plotly\/us.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+</p>
+<p>We believe only plotting the active cases may not alert US citizens enough. So we decided to add one more plot showing the daily updated death cases of each state.</p>
+<p>
+
+
+
+<div id="/plotly/death.json" class="plotly" style="height:500px"></div>
+<script>
+Plotly.d3.json("/plotly/death.json", function(err, fig) {
+    Plotly.plot('\/plotly\/death.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+</p>
+<p>Only if people understand how deadly Covid-19 is, they can improve their consciousness and knowledge about self - protection and follow the CDC guidelines strictly. Unlike the bubble maps we have plotted, for this part we did a Choropleth map as it only shows death case of each state. The Choreopleth map requires a further data processing by changing the state name to state abbreviation. I did it by using mapping method, also drop records that ISO3 is not US.</p>
+<h2 id="predictive-model-development">Predictive Model Development</h2>
+<p>Visualizing the current situation is important to keep people aware of the COVID-19. But more importantly, we would like to know what&rsquo;s next. Will everything be better or worse in next day, or next week, or next months?  For this consideration, we try to build our models, using JHU datasets, to predict the number of new cases. For this part, I focus on building the SVR model, and my teammates try to build a SARIMAX model, and a prophet model. I&rsquo;ll discuss these models below:</p>
+<h3 id="svr-model">SVR model</h3>
+<p>all codes are in <a href="https://github.com/ys279/BIOSTAT823-Final-Project/blob/master/model/SVR%20Model.ipynb">SVR model</a></p>
+<p>For this model, we use the time series data as we have for plotting the spread map. The preprocessing procedure is also exactly same as what we did for plotting the map.</p>
+<p>The idea is forecasting COVID-19′s confirmed/death/recover cases of the next 10 days by implementing SVM classification method. We apply this method to capture the predictor non-linearity and to improve the forecasting cases. In our case, we adopted polynomial kernel and use random-search cross-validation to find the best hyper-parameters. The training data is the time, and the label is confirmed cases. The results is shown in the plots below.</p>
+<p><figure>
+    <img src="/images/confirm.png"/> 
+</figure>
+
+<figure>
+    <img src="/images/death.png"/> 
+</figure>
+
+<figure>
+    <img src="/images/recover.png"/> 
+</figure>
+</p>
+<p>From the plot we can see that SVR is quite accurate on predicting Confirm cases and recover cases. However, for death cases there is some gap between the predicted and the actual data. One reason could be we tune the hyper-parameter by training the confirm datasets, and use that parameter for all three predict models. Tuning parameters take a long time to search the best ones, and for saving some time, we decided to use that for all SVR models. Such parameter is optimized for the confirm cases, but not necessary the best for death cases.</p>
+<h3 id="sarimax-model">SARIMAX model</h3>
+<p>all codes are in <a href="https://github.com/ys279/BIOSTAT823-Final-Project/blob/master/model/SARIMAX%2BProphet.ipynb">SARIMAX model</a></p>
+<p>For SARIMAX model, we use time series table from JHU repository. As the data only contains date time and the value of dependent variables(confirmed/death cases), using this time series model seems to be a reasonable choices. Second, in terms of the global death number, the dataset we are using to build a time series model is actually the daily increase data. This daily increase data is not consistent, but appear periodically, according to one trace plot. Thus, addding seasonality to our model is plausible. In the meantime, the first 3 of these 4 orders of SARIMAX are just seasonal versions of the ARIMA orders, which means we need to find a seasonal autoregressive order denoted by upper-case P, an order of seasonal integration denoted by upper-case D, and a seasonal moving average order signified by upper-case Q.<br>
+After multiple analysis work, we think SARIMAX(5,2,4)(0,0,0)[0] is the most appropriate model for predicting the global COVID-19 death case with MAE being 2347.05. The result is shown below:</p>
+<figure>
+    <img src="/images/sarimax.png"/> 
+</figure>
+
+<h3 id="prophet-model">Prophet model</h3>
+<p>all codes are in <a href="https://github.com/ys279/BIOSTAT823-Final-Project/blob/master/prophet_model.ipynb">prophet model</a></p>
+<p>Prophet model is proposed by Facebook AI group. It is a very common model for time-series prediction. For this model, we use univariate time series data. For exmaple, when predict confirm cases, we only use time and confirm cases to train the model. The idea is forecasting time series data based on an additive model using yearly, weekly and daily seasonality, plus holidays effects to help fit nonlinear trends.</p>
+<p>We have trained prophet model use either logistic or linear functions as trend model. After evaluating the prediction result, we found this model performs well  for short-term prediction. But for long-term, the results are out of our expectation. The results are shown in the plots below:</p>
+<p><figure>
+    <img src="/images/prophet1.png"/> 
+</figure>
+
+<figure>
+    <img src="/images/prophet2.png"/> 
+</figure>
+</p>
+<h2 id="reflection-and-final-thoughts">Reflection and Final Thoughts</h2>
+<p>In this project, I have practiced my skills on collecting and cleaning datasets, visualizing data in various forms (especially on maps!), and exploring various time-series model for predicting new cases in the next time period. Also, creating a dashboard is a quite interesting journey for me. Although adjusting some UI features is time-consuming, but I found it is also satisfying every time I see our dashboard looks better.</p>
+<p>In this project, a major challenge that everyone in our team was facing was time management. Most of us were under the pressure of job finding and multiple project dues in these few weeks. We tried our best to finish this project, but if we could have some more time, or if we could start this project much earlier, I believe we could deliver a better final presentation.</p>
+<p>Overall, I think our project provides some interesting and insightful perspective about covid-19 pandemic, and hopefully everything could get better in 2021!</p>
+<h2 id="references">References</h2>
+<p><a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE COVID-19 Data Repository</a>
+<a href="https://www.streamlit.io/">Streamlit</a>
+<a href="https://discuss.streamlit.io/t/best-approach-to-mapping-with-dynamic-updates/2331">mapping with dynamic updates</a>
+<a href="https://plotly.com/python/scattermapbox/">plotly express</a>
+<a href="https://www.sciencedirect.com/science/article/pii/S0960077920302538">SVR</a>
+<a href="https://www.statsmodels.org/dev/examples/notebooks/generated/statespace_sarimax_stata.html">SARIMAX</a>
+<a href="https://machinelearningmastery.com/time-series-forecasting-with-prophet-in-python/">Time Series Forecasting with Prophet</a>
+<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7390340/">Estimation of COVID-19 spread curves integrating global data and borrowing information</a></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/plotly" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">plotly</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/visualization" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">visualization</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/covid-19" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">covid-19</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/proj-7/">Project 7: CNN model for insect image classification</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/proj-6/">Project 6: Dashboard for visualization of PhDs awarded in the US</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/proj-3/">Project 3: Visualization about Malaria</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/proj-5/">Project 5: Use Star Wars API to request Data about SW characters</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/proj-4/">Project 4: Convert spotify dataframe to 3NF and create SQL schema</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/proj-2/">Project 2: Euler&#39;s projects</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiangwenmo.github.io/" >
+    &copy;  Xiangwen Mo 2020 
+  </a>
+    <div>
+
+
+
+<a href="https://www.facebook.com/sirius.mo.5/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/xiangwen-mo-121aa5152/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/xiangwenmo" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

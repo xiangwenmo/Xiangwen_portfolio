@@ -6,10 +6,20 @@
     <description>Recent content in visualization on Xiangwen Mo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xiangwenmo.github.io/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Final-Project: COVID-19 Data Analysis and Dashboard</title>
+      <link>https://xiangwenmo.github.io/post/proj-8/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiangwenmo.github.io/post/proj-8/</guid>
+      <description>Overview This is the final project for BIOSTAT 823 (2020 Fall). This project focus on two main objectives:
+ Covid-19 data visualization that helps users to understand how COVID-19 spread across the world and the United States, and the current pandemic situation we are facing. Use different machine learning methods to predict confirm cases in a next given period. For this project, we have tried three models: SARIMAX model, SVR model, and prophet model.</description>
+    </item>
     
     <item>
       <title>Project 7: CNN model for insect image classification</title>

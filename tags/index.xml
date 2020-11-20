@@ -6,15 +6,24 @@
     <description>Recent content in Tags on Xiangwen Mo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://xiangwenmo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>covid-19</title>
+      <link>https://xiangwenmo.github.io/tags/covid-19/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiangwenmo.github.io/tags/covid-19/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>plotly</title>
       <link>https://xiangwenmo.github.io/tags/plotly/</link>
-      <pubDate>Sat, 14 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xiangwenmo.github.io/tags/plotly/</guid>
       <description></description>
@@ -23,7 +32,7 @@
     <item>
       <title>python</title>
       <link>https://xiangwenmo.github.io/tags/python/</link>
-      <pubDate>Sat, 14 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xiangwenmo.github.io/tags/python/</guid>
       <description></description>
@@ -32,7 +41,7 @@
     <item>
       <title>visualization</title>
       <link>https://xiangwenmo.github.io/tags/visualization/</link>
-      <pubDate>Sat, 14 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://xiangwenmo.github.io/tags/visualization/</guid>
       <description></description>
